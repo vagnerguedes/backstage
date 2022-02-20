@@ -33,7 +33,7 @@
   },
   "dependencies": {
     "@backstage/core-components": "^0.8.10",
-    "@backstage/core-plugin-api": "0.7.0",
+    "@backstage/core-plugin-api": "^0.7.0",
     "@backstage/dev-utils": "^0.2.23",
     "@backstage/integration": "^0.7.5",
     "@backstage/integration-react": "^0.1.23",
