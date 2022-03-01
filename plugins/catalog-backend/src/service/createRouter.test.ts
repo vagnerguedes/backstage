@@ -15,19 +15,20 @@
  */
 
 import { getVoidLogger } from '@backstage/backend-common';
-import { ConfigReader } from '@backstage/config';
-import { NotFoundError } from '@backstage/errors';
 import type { Location } from '@backstage/catalog-client';
 import type { Entity } from '@backstage/catalog-model';
-import express from 'express';
-import request from 'supertest';
-import { EntitiesCatalog } from '../catalog';
-import { LocationInput, LocationService, RefreshService } from './types';
-import { basicEntityFilter } from './request';
-import { createRouter } from './createRouter';
+import { ConfigReader } from '@backstage/config';
+import { NotFoundError } from '@backstage/errors';
+import { RESOURCE_TYPE_CATALOG_ENTITY } from '@backstage/plugin-catalog-common';
 import { AuthorizeResult } from '@backstage/plugin-permission-common';
 import { createPermissionIntegrationRouter } from '@backstage/plugin-permission-node';
-import { RESOURCE_TYPE_CATALOG_ENTITY } from '@backstage/plugin-catalog-common';
+import express from 'express';
+import request from 'supertest';
+import { EntitiesCatalog } from '../features/entities';
+import { RefreshService } from '../features/entityRefresh';
+import { LocationInput, LocationService } from '../features/locations';
+import { createRouter } from './createRouter';
+import { basicEntityFilter } from './request';
 
 describe('createRouter readonly disabled', () => {
   let entitiesCatalog: jest.Mocked<EntitiesCatalog>;

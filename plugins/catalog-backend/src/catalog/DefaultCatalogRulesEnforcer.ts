@@ -18,6 +18,7 @@ import { Config } from '@backstage/config';
 import { Entity } from '@backstage/catalog-model';
 import path from 'path';
 import { LocationSpec } from '../api';
+import { CatalogRulesEnforcer } from './types';
 
 /**
  * Rules to apply to catalog entities.
@@ -34,16 +35,6 @@ export type CatalogRule = {
     target?: string;
     type: string;
   }>;
-};
-
-/**
- * Decides whether an entity from a given location is allowed to enter the
- * catalog, according to some rule set.
- *
- * @public
- */
-export type CatalogRulesEnforcer = {
-  isAllowed(entity: Entity, location: LocationSpec): boolean;
 };
 
 /**

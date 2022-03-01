@@ -24,9 +24,9 @@ import { Location } from '@backstage/catalog-client';
 import {
   CatalogProcessingOrchestrator,
   DeferredEntity,
-} from '../processing/types';
+} from '../../processing/types';
+import { locationSpecToMetadataName } from '../../util/conversion';
 import { LocationInput, LocationService, LocationStore } from './types';
-import { locationSpecToMetadataName } from '../util/conversion';
 
 export class DefaultLocationService implements LocationService {
   constructor(
@@ -48,9 +48,11 @@ export class DefaultLocationService implements LocationService {
   listLocations(): Promise<Location[]> {
     return this.store.listLocations();
   }
+
   getLocation(id: string): Promise<Location> {
     return this.store.getLocation(id);
   }
+
   deleteLocation(id: string): Promise<void> {
     return this.store.deleteLocation(id);
   }

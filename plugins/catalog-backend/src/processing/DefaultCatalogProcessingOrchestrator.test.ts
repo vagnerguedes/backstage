@@ -22,6 +22,7 @@ import {
   EntityPolicies,
   LocationEntity,
 } from '@backstage/catalog-model';
+import { ConfigReader } from '@backstage/config';
 import { ScmIntegrations } from '@backstage/integration';
 import {
   CatalogProcessor,
@@ -31,10 +32,9 @@ import {
   LocationSpec,
   processingResult,
 } from '../api';
-import { CatalogRulesEnforcer } from '../ingestion/CatalogRules';
-import { DefaultCatalogProcessingOrchestrator } from './DefaultCatalogProcessingOrchestrator';
+import { CatalogRulesEnforcer } from '../catalog';
 import { defaultEntityDataParser } from '../modules/util/parse';
-import { ConfigReader } from '@backstage/config';
+import { DefaultCatalogProcessingOrchestrator } from './DefaultCatalogProcessingOrchestrator';
 
 class FooBarProcessor implements CatalogProcessor {
   getProcessorName = () => 'foo-bar';

@@ -15,7 +15,7 @@
  */
 
 import { InputError } from '@backstage/errors';
-import { EntityPagination } from '../../catalog';
+import { EntityPagination } from '../../features/entities';
 import { parseIntegerParam, parseStringParam } from './common';
 
 /**

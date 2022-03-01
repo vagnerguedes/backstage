@@ -16,7 +16,7 @@
 
 import { Entity } from '@backstage/catalog-model';
 import { makeCreatePermissionRule } from '@backstage/plugin-permission-node';
-import { EntitiesSearchFilter } from '../../catalog/types';
+import { EntitiesSearchFilter } from '../../features/entities';
 
 /**
  * Helper function for creating correctly-typed

@@ -15,11 +15,11 @@
  */
 
 import { Entity } from '@backstage/catalog-model';
-import { RecursivePartial } from '../util/RecursivePartial';
-import { LocationSpec } from '../api';
+import { RecursivePartial } from '../../util/RecursivePartial';
+import { LocationSpec } from '../../api';
 
 /** @public */
-export type LocationAnalyzer = {
+export interface LocationAnalyzer {
   /**
    * Generates an entity configuration for given git repository. It's used for
    * importing new component to the backstage app.
@@ -29,31 +29,32 @@ export type LocationAnalyzer = {
   analyzeLocation(
     location: AnalyzeLocationRequest,
   ): Promise<AnalyzeLocationResponse>;
-};
+}
 
 /** @public */
-export type AnalyzeLocationRequest = {
+export interface AnalyzeLocationRequest {
   location: LocationSpec;
-};
+}
 
 /** @public */
-export type AnalyzeLocationResponse = {
+export interface AnalyzeLocationResponse {
   existingEntityFiles: AnalyzeLocationExistingEntity[];
   generateEntities: AnalyzeLocationGenerateEntity[];
-};
+}
 
 /**
  * If the folder pointed to already contained catalog info yaml files, they are
  * read and emitted like this so that the frontend can inform the user that it
  * located them and can make sure to register them as well if they weren't
  * already
+ *
  * @public
  */
-export type AnalyzeLocationExistingEntity = {
+export interface AnalyzeLocationExistingEntity {
   location: LocationSpec;
   isRegistered: boolean;
   entity: Entity;
-};
+}
 
 /**
  * This is some form of representation of what the analyzer could deduce.
@@ -61,20 +62,21 @@ export type AnalyzeLocationExistingEntity = {
  * the frontend. It'll probably contain a (possibly incomplete) entity, plus
  * enough info for the frontend to know what form data to show to the user
  * for overriding/completing the info.
+ *
  * @public
- * */
-export type AnalyzeLocationGenerateEntity = {
+ */
+export interface AnalyzeLocationGenerateEntity {
   // Some form of partial representation of the entity
   entity: RecursivePartial<Entity>;
   // Lists the suggestions that the user may want to override
   fields: AnalyzeLocationEntityField[];
-};
+}
 
 // This is where I get really vague. Something like this perhaps? Or it could be
 // something like a json-schema that contains enough info for the frontend to
 // be able to present a form and explanations
 /** @public */
-export type AnalyzeLocationEntityField = {
+export interface AnalyzeLocationEntityField {
   /**
    * e.g. "spec.owner"? The frontend needs to know how to "inject" the field into the
    * entity again if the user wants to change it
@@ -97,4 +99,4 @@ export type AnalyzeLocationEntityField = {
    * codeowners file.
    */
   description: string;
-};
+}

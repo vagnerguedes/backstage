@@ -18,11 +18,11 @@ import { Location } from '@backstage/catalog-client';
 import { ConflictError, NotFoundError } from '@backstage/errors';
 import { Knex } from 'knex';
 import { v4 as uuid } from 'uuid';
+import { EntityProvider, EntityProviderConnection } from '../../api';
 import { DbLocationsRow } from '../../database/tables';
 import { getEntityLocationRef } from '../../processing/util';
-import { EntityProvider, EntityProviderConnection } from '../../api';
 import { locationSpecToLocationEntity } from '../../util/conversion';
-import { LocationInput, LocationStore } from '../../service';
+import { LocationInput, LocationStore } from './types';
 
 export class DefaultLocationStore implements LocationStore, EntityProvider {
   private _connection: EntityProviderConnection | undefined;

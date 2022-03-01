@@ -22,7 +22,7 @@
 
 export * from './api';
 export * from './catalog';
-export * from './ingestion';
+export * from './features';
 export * from './modules';
 export * from './search';
 export * from './util';

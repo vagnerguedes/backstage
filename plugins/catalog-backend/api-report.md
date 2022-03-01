@@ -37,39 +37,48 @@ import { UrlReader } from '@backstage/backend-common';
 import { Validators } from '@backstage/catalog-model';
 
 // @public (undocumented)
-export type AnalyzeLocationEntityField = {
+export interface AnalyzeLocationEntityField {
+  description: string;
   field: string;
   state:
     | 'analysisSuggestedValue'
     | 'analysisSuggestedNoValue'
     | 'needsUserInput';
+  // (undocumented)
   value: string | null;
-  description: string;
-};
+}
 
 // @public
-export type AnalyzeLocationExistingEntity = {
-  location: LocationSpec;
-  isRegistered: boolean;
+export interface AnalyzeLocationExistingEntity {
+  // (undocumented)
   entity: Entity;
-};
+  // (undocumented)
+  isRegistered: boolean;
+  // (undocumented)
+  location: LocationSpec;
+}
 
 // @public
-export type AnalyzeLocationGenerateEntity = {
+export interface AnalyzeLocationGenerateEntity {
+  // (undocumented)
   entity: RecursivePartial<Entity>;
+  // (undocumented)
   fields: AnalyzeLocationEntityField[];
-};
+}
 
 // @public (undocumented)
-export type AnalyzeLocationRequest = {
+export interface AnalyzeLocationRequest {
+  // (undocumented)
   location: LocationSpec;
-};
+}
 
 // @public (undocumented)
-export type AnalyzeLocationResponse = {
+export interface AnalyzeLocationResponse {
+  // (undocumented)
   existingEntityFiles: AnalyzeLocationExistingEntity[];
+  // (undocumented)
   generateEntities: AnalyzeLocationGenerateEntity[];
-};
+}
 
 // @public (undocumented)
 export class AnnotateLocationEntityProcessor implements CatalogProcessor {
@@ -789,11 +798,11 @@ function location_2(
 ): CatalogProcessorResult;
 
 // @public (undocumented)
-export type LocationAnalyzer = {
+export interface LocationAnalyzer {
   analyzeLocation(
     location: AnalyzeLocationRequest,
   ): Promise<AnalyzeLocationResponse>;
-};
+}
 
 // @public (undocumented)
 export class LocationEntityProcessor implements CatalogProcessor {

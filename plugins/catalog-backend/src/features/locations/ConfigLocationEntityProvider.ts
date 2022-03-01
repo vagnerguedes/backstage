@@ -16,8 +16,8 @@
 
 import { Config } from '@backstage/config';
 import path from 'path';
-import { getEntityLocationRef } from '../../processing/util';
 import { EntityProvider, EntityProviderConnection } from '../../api';
+import { getEntityLocationRef } from '../../processing/util';
 import { locationSpecToLocationEntity } from '../../util/conversion';
 
 export class ConfigLocationEntityProvider implements EntityProvider {

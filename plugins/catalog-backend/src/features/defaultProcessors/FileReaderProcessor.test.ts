@@ -21,7 +21,7 @@ import {
   CatalogProcessorResult,
 } from '../../api';
 import path from 'path';
-import { defaultEntityDataParser } from '../util/parse';
+import { defaultEntityDataParser } from '../../modules/util/parse';
 
 describe('FileReaderProcessor', () => {
   const fixturesRoot = path.join(

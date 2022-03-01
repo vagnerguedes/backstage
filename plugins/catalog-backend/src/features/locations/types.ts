@@ -53,31 +53,9 @@ export interface LocationService {
 }
 
 /**
- * Options for requesting a refresh of entities in the catalog.
- *
- * @public
- */
-export type RefreshOptions = {
-  /** The reference to a single entity that should be refreshed */
-  entityRef: string;
-  authorizationToken?: string;
-};
-
-/**
- * A service that manages refreshes of entities in the catalog.
- *
- * @public
- */
-export interface RefreshService {
-  /**
-   * Request a refresh of entities in the catalog.
-   */
-  refresh(options: RefreshOptions): Promise<void>;
-}
-
-/**
  * Interacts with the database to manage locations.
- * @public */
+ * @public
+ */
 export interface LocationStore {
   createLocation(location: LocationInput): Promise<Location>;
   listLocations(): Promise<Location[]>;

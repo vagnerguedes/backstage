@@ -16,7 +16,7 @@
 
 import { Entity } from '@backstage/catalog-model';
 import { ConfigReader } from '@backstage/config';
-import { DefaultCatalogRulesEnforcer } from './CatalogRules';
+import { DefaultCatalogRulesEnforcer } from './DefaultCatalogRulesEnforcer';
 import { LocationSpec } from '../api';
 
 const entity = {

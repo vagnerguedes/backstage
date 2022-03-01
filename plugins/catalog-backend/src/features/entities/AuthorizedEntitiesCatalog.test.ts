@@ -21,9 +21,9 @@ import {
   createConditionTransformer,
   PermissionRule,
 } from '@backstage/plugin-permission-node';
-import { EntitiesSearchFilter } from '../catalog/types';
-import { isEntityKind } from '../permissions/rules/isEntityKind';
+import { isEntityKind } from '../../permissions/rules/isEntityKind';
 import { AuthorizedEntitiesCatalog } from './AuthorizedEntitiesCatalog';
+import { EntitiesSearchFilter } from './types';
 
 describe('AuthorizedEntitiesCatalog', () => {
   const fakeCatalog = {

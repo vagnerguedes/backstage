@@ -32,14 +32,14 @@ import {
   EntityFacetsResponse,
   EntityFilter,
   EntityPagination,
-} from '../catalog/types';
+} from './types';
 import {
   DbFinalEntitiesRow,
   DbPageInfo,
   DbRefreshStateReferencesRow,
   DbRefreshStateRow,
   DbSearchRow,
-} from '../database/tables';
+} from '../../database/tables';
 
 function parsePagination(input?: EntityPagination): {
   limit?: number;

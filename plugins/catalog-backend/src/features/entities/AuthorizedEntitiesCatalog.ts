@@ -14,17 +14,18 @@
  * limitations under the License.
  */
 
+import { Entity, stringifyEntityRef } from '@backstage/catalog-model';
 import { NotAllowedError } from '@backstage/errors';
 import {
   catalogEntityDeletePermission,
   catalogEntityReadPermission,
 } from '@backstage/plugin-catalog-common';
-import { Entity, stringifyEntityRef } from '@backstage/catalog-model';
 import {
   AuthorizeResult,
   PermissionAuthorizer,
 } from '@backstage/plugin-permission-common';
 import { ConditionTransformer } from '@backstage/plugin-permission-node';
+import { basicEntityFilter } from '../../service/request/basicEntityFilter';
 import {
   EntitiesCatalog,
   EntitiesRequest,
@@ -33,8 +34,7 @@ import {
   EntityFacetsRequest,
   EntityFacetsResponse,
   EntityFilter,
-} from '../catalog/types';
-import { basicEntityFilter } from './request/basicEntityFilter';
+} from './types';
 
 export class AuthorizedEntitiesCatalog implements EntitiesCatalog {
   constructor(

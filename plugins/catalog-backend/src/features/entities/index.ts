@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 The Backstage Authors
+ * Copyright 2022 The Backstage Authors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,13 +14,15 @@
  * limitations under the License.
  */
 
-export { DefaultCatalogRulesEnforcer } from './CatalogRules';
-export type { CatalogRule, CatalogRulesEnforcer } from './CatalogRules';
 export type {
-  AnalyzeLocationEntityField,
-  AnalyzeLocationExistingEntity,
-  AnalyzeLocationGenerateEntity,
-  AnalyzeLocationRequest,
-  AnalyzeLocationResponse,
-  LocationAnalyzer,
+  EntitiesCatalog,
+  EntitiesRequest,
+  EntitiesResponse,
+  EntitiesSearchFilter,
+  EntityAncestryResponse,
+  EntityFacetsRequest,
+  EntityFacetsResponse,
+  EntityFilter,
+  EntityPagination,
+  PageInfo,
 } from './types';

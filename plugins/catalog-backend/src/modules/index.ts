@@ -18,6 +18,6 @@ export * from './aws';
 export * from './azure';
 export * from './bitbucket';
 export * from './codeowners';
-export * from './core';
 export * from './github';
 export * from './gitlab';
+export { parseEntityYaml } from './util/parse';

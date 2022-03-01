@@ -29,7 +29,7 @@ import {
   CatalogProcessorErrorResult,
   CatalogProcessorResult,
 } from '../../api';
-import { defaultEntityDataParser } from '../util/parse';
+import { defaultEntityDataParser } from '../../modules/util/parse';
 import { UrlReaderProcessor } from './UrlReaderProcessor';
 
 describe('UrlReaderProcessor', () => {

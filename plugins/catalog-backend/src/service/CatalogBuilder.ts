@@ -28,76 +28,77 @@ import {
   stringifyEntityRef,
   Validators,
 } from '@backstage/catalog-model';
+import { Config } from '@backstage/config';
 import {
+  DefaultGithubCredentialsProvider,
   GithubCredentialsProvider,
   ScmIntegrations,
-  DefaultGithubCredentialsProvider,
 } from '@backstage/integration';
+import { RESOURCE_TYPE_CATALOG_ENTITY } from '@backstage/plugin-catalog-common';
+import { PermissionAuthorizer } from '@backstage/plugin-permission-common';
+import {
+  createConditionTransformer,
+  createPermissionIntegrationRouter,
+  PermissionRule,
+} from '@backstage/plugin-permission-node';
 import { createHash } from 'crypto';
 import { Router } from 'express';
 import lodash, { keyBy } from 'lodash';
-import { EntitiesCatalog, EntitiesSearchFilter } from '../catalog';
-
+import { Logger } from 'winston';
 import {
   CatalogProcessor,
   CatalogProcessorParser,
   EntityProvider,
 } from '../api';
+import { DefaultCatalogRulesEnforcer } from '../catalog';
+import { DefaultProcessingDatabase } from '../database/DefaultProcessingDatabase';
+import { applyDatabaseMigrations } from '../database/migrations';
+import { LocationAnalyzer } from '../features/analysis';
+import { RepoLocationAnalyzer } from '../features/analysis/LocationAnalyzer';
 import {
   AnnotateLocationEntityProcessor,
-  BitbucketDiscoveryProcessor,
   BuiltinKindsEntityProcessor,
-  CodeOwnersProcessor,
   FileReaderProcessor,
-  AzureDevOpsDiscoveryProcessor,
-  GithubDiscoveryProcessor,
-  GithubOrgReaderProcessor,
-  GitLabDiscoveryProcessor,
   PlaceholderProcessor,
   PlaceholderResolver,
   UrlReaderProcessor,
-} from '../modules';
-import { ConfigLocationEntityProvider } from '../modules/core/ConfigLocationEntityProvider';
-import { DefaultLocationStore } from '../modules/core/DefaultLocationStore';
-import { RepoLocationAnalyzer } from '../ingestion/LocationAnalyzer';
+} from '../features/defaultProcessors';
 import {
   jsonPlaceholderResolver,
   textPlaceholderResolver,
   yamlPlaceholderResolver,
-} from '../modules/core/PlaceholderProcessor';
+} from '../features/defaultProcessors/PlaceholderProcessor';
+import { DefaultEntitiesCatalog } from '../features/entities/DefaultEntitiesCatalog';
+import { EntitiesCatalog, EntitiesSearchFilter } from '../features/entities';
+import { AuthorizedEntitiesCatalog } from '../features/entities/AuthorizedEntitiesCatalog';
+import { DefaultRefreshService } from '../features/entityRefresh/DefaultRefreshService';
+import { AuthorizedRefreshService } from '../features/entityRefresh/AuthorizedRefreshService';
+import { ConfigLocationEntityProvider } from '../features/locations/ConfigLocationEntityProvider';
+import { DefaultLocationService } from '../features/locations/DefaultLocationService';
+import { DefaultLocationStore } from '../features/locations/DefaultLocationStore';
+import { LocationService } from '../features/locations';
+import { AuthorizedLocationService } from '../features/locations/AuthorizedLocationService';
+import {
+  AzureDevOpsDiscoveryProcessor,
+  BitbucketDiscoveryProcessor,
+  CodeOwnersProcessor,
+  GithubDiscoveryProcessor,
+  GithubOrgReaderProcessor,
+  GitLabDiscoveryProcessor,
+} from '../modules';
 import { defaultEntityDataParser } from '../modules/util/parse';
-import { LocationAnalyzer } from '../ingestion/types';
-import { CatalogProcessingEngine } from '../processing/types';
-import { DefaultProcessingDatabase } from '../database/DefaultProcessingDatabase';
-import { applyDatabaseMigrations } from '../database/migrations';
+import { permissionRules as catalogPermissionRules } from '../permissions/rules';
+import { connectEntityProviders } from '../processing/connectEntityProviders';
 import { DefaultCatalogProcessingEngine } from '../processing/DefaultCatalogProcessingEngine';
-import { DefaultLocationService } from './DefaultLocationService';
-import { DefaultEntitiesCatalog } from './DefaultEntitiesCatalog';
 import { DefaultCatalogProcessingOrchestrator } from '../processing/DefaultCatalogProcessingOrchestrator';
-import { Stitcher } from '../stitching/Stitcher';
 import {
   createRandomRefreshInterval,
   RefreshIntervalFunction,
 } from '../processing/refresh';
+import { CatalogProcessingEngine } from '../processing/types';
+import { Stitcher } from '../stitching/Stitcher';
 import { createRouter } from './createRouter';
-import { DefaultRefreshService } from './DefaultRefreshService';
-import { AuthorizedRefreshService } from './AuthorizedRefreshService';
-import { DefaultCatalogRulesEnforcer } from '../ingestion/CatalogRules';
-import { Config } from '@backstage/config';
-import { Logger } from 'winston';
-import { LocationService } from './types';
-import { connectEntityProviders } from '../processing/connectEntityProviders';
-import { permissionRules as catalogPermissionRules } from '../permissions/rules';
-import { PermissionAuthorizer } from '@backstage/plugin-permission-common';
-import {
-  PermissionRule,
-  createConditionTransformer,
-  createPermissionIntegrationRouter,
-} from '@backstage/plugin-permission-node';
-import { AuthorizedEntitiesCatalog } from './AuthorizedEntitiesCatalog';
 import { basicEntityFilter } from './request/basicEntityFilter';
-import { RESOURCE_TYPE_CATALOG_ENTITY } from '@backstage/plugin-catalog-common';
-import { AuthorizedLocationService } from './AuthorizedLocationService';
 
 /** @public */
 export type CatalogEnvironment = {

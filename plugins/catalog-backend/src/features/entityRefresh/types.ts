@@ -14,8 +14,25 @@
  * limitations under the License.
  */
 
-export { basicEntityFilter } from './basicEntityFilter';
-export { parseEntityFacetParams } from './parseEntityFacetParams';
-export { parseEntityFilterParams } from './parseEntityFilterParams';
-export { parseEntityPaginationParams } from './parseEntityPaginationParams';
-export { parseEntityTransformParams } from './parseEntityTransformParams';
+/**
+ * Options for requesting a refresh of entities in the catalog.
+ *
+ * @public
+ */
+export type RefreshOptions = {
+  /** The reference to a single entity that should be refreshed */
+  entityRef: string;
+  authorizationToken?: string;
+};
+
+/**
+ * A service that manages refreshes of entities in the catalog.
+ *
+ * @public
+ */
+export interface RefreshService {
+  /**
+   * Request a refresh of entities in the catalog.
+   */
+  refresh(options: RefreshOptions): Promise<void>;
+}

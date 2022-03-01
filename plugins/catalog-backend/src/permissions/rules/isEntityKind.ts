@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 import { Entity } from '@backstage/catalog-model';
-import { EntitiesSearchFilter } from '../../catalog/types';
+import { EntitiesSearchFilter } from '../../features/entities';
 import { createCatalogPermissionRule } from './util';
 
 /**

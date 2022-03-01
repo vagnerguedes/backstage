@@ -22,9 +22,13 @@ import express from 'express';
 import Router from 'express-promise-router';
 import { Logger } from 'winston';
 import yn from 'yn';
-import { EntitiesCatalog } from '../catalog';
-import { LocationAnalyzer } from '../ingestion/types';
+import { z } from 'zod';
+import { LocationAnalyzer } from '../features/analysis';
+import { EntitiesCatalog } from '../features/entities';
+import type { RefreshOptions, RefreshService } from '../features/entityRefresh';
+import { LocationService } from '../features/locations';
 import {
+  parseEntityFacetParams,
   basicEntityFilter,
   parseEntityFilterParams,
   parseEntityPaginationParams,
@@ -35,9 +39,6 @@ import {
   locationInput,
   validateRequestBody,
 } from './util';
-import { RefreshOptions, LocationService, RefreshService } from './types';
-import { z } from 'zod';
-import { parseEntityFacetParams } from './request/parseEntityFacetParams';
 
 /**
  * Options used by {@link createRouter}.

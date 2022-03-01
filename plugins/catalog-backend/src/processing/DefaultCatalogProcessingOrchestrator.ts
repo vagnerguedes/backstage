@@ -28,8 +28,8 @@ import {
   InputError,
   NotAllowedError,
 } from '@backstage/errors';
-import { JsonValue } from '@backstage/types';
 import { ScmIntegrationRegistry } from '@backstage/integration';
+import { JsonValue } from '@backstage/types';
 import path from 'path';
 import { Logger } from 'winston';
 import {
@@ -38,23 +38,23 @@ import {
   LocationSpec,
   processingResult,
 } from '../api';
+import { CatalogRulesEnforcer } from '../catalog';
+import { ProcessorCacheManager } from './ProcessorCacheManager';
+import { ProcessorOutputCollector } from './ProcessorOutputCollector';
 import {
   CatalogProcessingOrchestrator,
   EntityProcessingRequest,
   EntityProcessingResult,
 } from './types';
-import { ProcessorOutputCollector } from './ProcessorOutputCollector';
 import {
   getEntityLocationRef,
   getEntityOriginLocationRef,
   isLocationEntity,
+  isObject,
   toAbsoluteUrl,
   validateEntity,
   validateEntityEnvelope,
-  isObject,
 } from './util';
-import { CatalogRulesEnforcer } from '../ingestion/CatalogRules';
-import { ProcessorCacheManager } from './ProcessorCacheManager';
 
 type Context = {
   entityRef: string;
